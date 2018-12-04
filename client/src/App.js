@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import SongLists from "./SongLists";
+import MainPanel from "./MainPanel";
 class App extends Component {
     render() {
         return (
-            <SongLists/>
+            <MainPanel/>
         );
     }
 }
