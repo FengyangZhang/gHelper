@@ -62,7 +62,7 @@ router.post("/putData", (req, res) => {
 // this method overwrites existing data in our database
 router.post("/updateData", (req, res) => {
   const { songName, update } = req.body;
-  songChord.findOneAndUpdate(songName, update, err => {
+  songChord.findOneAndUpdate({'songName': songName}, update, err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
