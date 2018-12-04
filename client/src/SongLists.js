@@ -7,10 +7,10 @@ export default class SongLists extends Component {
   state = {
     data: [],
     intervalIsSet: false,
-    songName: "Unknown",
-    singerName: "Unknown",
-    mode: "Unknown",
-    genre: "Unknown",
+    songName: "",
+    singerName: "",
+    mode: "",
+    genre: "",
     partOfSong: "verse",
     chordsInput: "",
     partAndChords: [{
@@ -24,10 +24,10 @@ export default class SongLists extends Component {
       chordsOfPart: [],
     }],
     modifying: -1,
-    msingerName: "Unknown",
-    mmode: "Unknown",
-    mgenre: "Unknown",
-    mchords: "Unknown",
+    msingerName: "",
+    mmode: "",
+    mgenre: "",
+    mchords: "",
   };
 
   // when component mounts, first thing it does is fetch all existing data in our db
@@ -71,6 +71,10 @@ export default class SongLists extends Component {
         chords += entry.part + ":" + entry.chordsOfPart + '\n';      
     })
     this.setState({
+      singerName: "",
+      songName: "",
+      mode: "",
+      genre: "",
       partAndChords: [{
         part: "verse",
         chordsOfPart: [],
@@ -123,6 +127,7 @@ export default class SongLists extends Component {
     }
     cur[p].chordsOfPart.push(chordsInput);
     this.setState({
+      chordsInput: "",
       partAndChords: cur,
     })
   }
@@ -198,6 +203,7 @@ export default class SongLists extends Component {
             type="text"
             onChange={e => this.setState({ songName: e.target.value })}
             placeholder=""
+            value={this.state.songName}
             style={{ width: "200px" }}
           />
           Singer:
@@ -206,6 +212,7 @@ export default class SongLists extends Component {
             style={{ width: "200px" }}
             onChange={e => this.setState({ singerName: e.target.value })}
             placeholder=""
+            value={this.state.singerName}
           />
         </div>
         <div className="twoInputDiv" style={{ padding: "10px" }}>
@@ -215,6 +222,7 @@ export default class SongLists extends Component {
             onChange={e => this.setState({ genre: e.target.value })}
             placeholder=""
             style={{ width: "200px" }}
+            value={this.state.genre}
           />
           Mode of the song:
           <input className="standardInput"
@@ -222,6 +230,7 @@ export default class SongLists extends Component {
             onChange={e => this.setState({ mode: e.target.value })}
             placeholder=""
             style={{ width: "200px" }}
+            value={this.state.mode}
           />
         </div>
         <div style={{ padding: "10px" }}>
@@ -236,6 +245,7 @@ export default class SongLists extends Component {
             type="text"
             onChange={e => this.setState({ chordsInput: e.target.value })}
             placeholder=""
+            value={this.state.chordsInput}
             style={{ width: "200px" }}
           />
           <button onClick={() => this.addChords(this.state.partOfSong, this.state.chordsInput)}>ADD</button>
