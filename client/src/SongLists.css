@@ -1,0 +1,35 @@
+/* .twoInputDiv{ */
+    /* vertical-align: top; */
+    /* width: 150px; */
+    /* float: left; */
+    /* margin-left: 100px; */
+/* } */
+.infoDiv{
+    display:inline-block; 
+}
+.standardInput{
+    margin-right: 100px
+}
+
+.addButton{
+    background: white;
+    border: 1px solid #555555;
+    color: #555555;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left:1.5rem;
+    margin-right:1.5rem;
+    outline: none;
+    padding:0.3rem;
+    transition: transform .2s ease;
+    border-radius: 50%;
+    height:4rem;
+    width:4rem;
+}
+.addButton:hover{
+    background: #888888;
+}
+.addButton:active{
+    background: #888888;
+    transform: scale(1.2);
+}
