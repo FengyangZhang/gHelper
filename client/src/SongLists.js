@@ -14,8 +14,14 @@ export default class SongLists extends Component {
     partOfSong: "verse",
     chordsInput: "",
     partAndChords: [{
-      part: "",
-      chordsOfPart: "",
+      part: "verse",
+      chordsOfPart: [],
+    }, {
+      part: "chorus",
+      chordsOfPart: [],
+    }, {
+      part: "solo",
+      chordsOfPart: [],
     }],
     modifying: -1,
     msingerName: "Unknown",
@@ -62,10 +68,20 @@ export default class SongLists extends Component {
   putDataToDB = (songName, singerName, mode, partAndChords, genre) => {
     var chords = "";
     partAndChords.map((entry, index)=>{
-      if(index > 0){
         chords += entry.part + ":" + entry.chordsOfPart + '\n';      
-      }
     })
+    this.setState({
+      partAndChords: [{
+        part: "verse",
+        chordsOfPart: [],
+      }, {
+        part: "chorus",
+        chordsOfPart: [],
+      }, {
+        part: "solo",
+        chordsOfPart: [],
+      }],
+    });
     axios.post("/api/putData", {
       songName: songName,
       singerName: singerName,
@@ -94,11 +110,20 @@ export default class SongLists extends Component {
   };
 
   addChords(partOfSong, chordsInput){
+    var cur = this.state.partAndChords;
+    var p = 0;
+    if(partOfSong === "verse") {
+      p = 0;
+    }
+    else if(partOfSong === "chorus") {
+      p = 1;
+    }
+    else {
+      p = 2;
+    }
+    cur[p].chordsOfPart.push(chordsInput);
     this.setState({
-      partAndChords: this.state.partAndChords.concat([{
-        part: partOfSong,
-        chordsOfPart: chordsInput,
-      }])
+      partAndChords: cur,
     })
   }
 
@@ -108,14 +133,9 @@ export default class SongLists extends Component {
     })
   }
 
-  // here is our UI
-  // it is easy to understand their functions when you 
-  // see them render into our screen
   render() {
     const currentChords = this.state.partAndChords.map((entry, index) => {
-      if(index > 0) {
         return <p key={index}> {entry.part + "     " + entry.chordsOfPart}</p>
-      }
     })
     const songList = (
       <ul>
