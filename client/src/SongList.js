@@ -30,9 +30,13 @@ export default class SongList extends Component {
         });
     };
     
-    setModifying(index) {
+    setModifying(index, singerName, genre, mode, chords) {
         this.setState({
           modifying: index,
+          msingerName: singerName,
+          mgenre: genre,
+          mmode: mode,
+          mchords: chords,
         })
     }
 
@@ -48,22 +52,22 @@ export default class SongList extends Component {
                 <br />
                 <span style={{ color: "gray" }}> Singer: </span> 
                 <input type='text' 
-                  default={dat.singerName}
+                  value={this.state.msingerName}
                   onChange={e=>this.setState({msingerName: e.target.value})}></input>
                 <br />
                 <span style={{ color: "gray" }}> Genre: </span>
                 <input type='text' 
-                  default={dat.genre}
+                  value={this.state.mgenre}
                   onChange={e=>this.setState({mgenre: e.target.value})}></input>
                 <br />
                 <span style={{ color: "gray" }}> Mode: </span>
                 <input type='text' 
-                  default={dat.mode}
+                  value={this.state.mmode}
                   onChange={e=>this.setState({mmode: e.target.value})}></input>
                 <br />
                 <span style={{ color: "gray" }}> Chords: </span>
                 <input type='text' 
-                  default={dat.chords}
+                  value={this.state.mchords}
                   onChange={e=>this.setState({mchords: e.target.value})}></input>
               </li>
               <button onClick={() => this.updateDB(index, dat.songName,
@@ -82,7 +86,7 @@ export default class SongList extends Component {
                 <span style={{ color: "gray" }}> Chords: </span>{dat.chords}
               </li>
               <button onClick={() => this.deleteFromDB(dat.songName)}>Delete</button>
-              <button onClick={() => this.setModifying(index)}>Modify</button>
+              <button onClick={() => this.setModifying(index, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
               </div>)
               
             ))}
