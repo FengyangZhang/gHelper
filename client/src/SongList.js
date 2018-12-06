@@ -9,6 +9,7 @@ export default class SongList extends Component {
           data: [],
           intervalIsSet: false,
           modifying: -1,
+          msongName: "",
           msingerName: "",
           mmode: "",
           mgenre: "",
@@ -41,27 +42,29 @@ export default class SongList extends Component {
         .then(data => data.json())
         .then(res => this.setState({ data: res.data }));
     };
-    deleteFromDB = songToDelete => {
+
+    deleteFromDB = idToDelete => {
         axios.delete("/api/deleteData", {
           data: {
-            songName: songToDelete
+            id: idToDelete
           }
         });
     };
     
-    updateDB = (index, songName, singerName, genre, mode, chords) => {
+    updateDB = (index, songName, singerName, genre, mode, chords, id) => {
         this.setState({
             modifying: -1,
         })
         axios.post("/api/updateData", {
-            songName: songName,
-            update: { singerName: singerName, genre: genre, mode:mode, chords:chords }
+            id: id,
+            update: { songName: songName, singerName: singerName, genre: genre, mode:mode, chords:chords }
         });
     };
     
-    setModifying(index, singerName, genre, mode, chords) {
+    setModifying(index, songName, singerName, genre, mode, chords) {
         this.setState({
           modifying: index,
+          msongName: songName,
           msingerName: singerName,
           mgenre: genre,
           mmode: mode,
@@ -79,7 +82,10 @@ export default class SongList extends Component {
             index === this.state.modifying ? (
               <div className="infoDiv" key={index}>
               <li style={ {padding: "10px", width: "200px"}} >
-                <span style={{ color: "gray" }}> Song: </span>{dat.songName}
+                <span style={{ color: "gray" }}> Song: </span>
+                <input type='text' 
+                  value={this.state.msongName}
+                  onChange={e=>this.setState({msongName: e.target.value})}></input>
                 <br />
                 <span style={{ color: "gray" }}> Singer: </span> 
                 <input type='text' 
@@ -101,8 +107,8 @@ export default class SongList extends Component {
                   value={this.state.mchords}
                   onChange={e=>this.setState({mchords: e.target.value})}></input>
               </li>
-              <button onClick={() => this.updateDB(index, dat.songName,
-                this.state.msingerName, this.state.mgenre, this.state.mmode, this.state.mchords)}>Update</button> 
+              <button onClick={() => this.updateDB(index, this.state.msongName,
+                this.state.msingerName, this.state.mgenre, this.state.mmode, this.state.mchords, dat._id)}>Update</button> 
               </div>) : (
               <div className="infoDiv" key={index}>
               <li style={ {padding: "10px", width: "200px"}} >
@@ -116,8 +122,8 @@ export default class SongList extends Component {
                 <br />
                 <span style={{ color: "gray" }}> Chords: </span><label className="infoText">{dat.chords}</label>
               </li>
-              <button onClick={() => this.deleteFromDB(dat.songName)}>Delete</button>
-              <button onClick={() => this.setModifying(index, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
+              <button onClick={() => this.deleteFromDB(dat._id)}>Delete</button>
+              <button onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
               </div>)
               
             ))}

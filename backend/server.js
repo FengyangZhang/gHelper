@@ -61,8 +61,8 @@ router.post("/putData", (req, res) => {
 // this is our update method
 // this method overwrites existing data in our database
 router.post("/updateData", (req, res) => {
-  const { songName, update } = req.body;
-  songChord.findOneAndUpdate({'songName': songName}, update, err => {
+  const { id, update } = req.body;
+  songChord.findOneAndUpdate({'_id': id}, update, err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
@@ -71,8 +71,8 @@ router.post("/updateData", (req, res) => {
 // this is our delete method
 // this method removes existing data in our database
 router.delete("/deleteData", (req, res) => {
-  const { songName } = req.body;
-  songChord.findOneAndDelete({'songName': songName}, err => {
+  const { id } = req.body;
+  songChord.findOneAndDelete({'_id': id}, err => {
     if (err) return res.send(err);
     return res.json({ success: true });
   });
