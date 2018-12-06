@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import MainPanel from "./MainPanel";
+import AddPanel from "./AddPanel";
+import SongList from "./SongList";
+
 class App extends Component {
     render() {
         return (
-            <MainPanel/>
+            <div className="APP">
+                <SongList />            
+                <AddPanel />
+            </div>
         );
     }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+require('./css/AddPanel.css');
 
 export default class AddPanel extends Component {
     constructor(props){
