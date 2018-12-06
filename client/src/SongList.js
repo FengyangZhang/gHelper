@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+require('./css/SongList.css');
 
 export default class SongList extends Component {
     constructor(props){
@@ -41,7 +42,9 @@ export default class SongList extends Component {
     }
 
     render() {
-        return (<ul>
+        return (
+        <div>
+        <ul>
         {this.props.data.length <= 0
           ? "NO SONG LISTED YET"
           : this.props.data.map((dat, index) => (
@@ -83,13 +86,14 @@ export default class SongList extends Component {
                 <br />
                 <span style={{ color: "gray" }}> Mode: </span>{dat.mode}
                 <br />
-                <span style={{ color: "gray" }}> Chords: </span>{dat.chords}
+                <span style={{ color: "gray" }}> Chords: </span><label className="infoText">{dat.chords}</label>
               </li>
               <button onClick={() => this.deleteFromDB(dat.songName)}>Delete</button>
               <button onClick={() => this.setModifying(index, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
               </div>)
               
             ))}
-      </ul>)
-    }
+      </ul>
+      </div>
+      )}
 }
