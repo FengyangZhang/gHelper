@@ -5,3 +5,17 @@
     white-space: nowrap;
     display:inline-block;
 }
+
+.songItem{
+    background:url('../pic/note.jpeg') no-repeat 0px 0px;
+    padding-left:40px;
+    background-size:40px 30px;
+    list-style:none;
+}
+
+.leftMargin40Button{
+    margin-left:40px;
+}
+.leftMargin20Button{
+    margin-left:20px;
+}

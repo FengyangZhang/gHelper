@@ -13,8 +13,8 @@ const routes = (
     <Router>
         <div>
         <Route path="/" component={App} />
-        <Route path = "/SongList" component = {SongList}/>
-        <Route path = "/AddPanel" component = {AddPanel}/>
+        <Route path = "/songlist" component = {SongList}/>
+        <Route path = "/addpanel" component = {AddPanel}/>
         </div>
     </Router>
   );

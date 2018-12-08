@@ -27,7 +27,7 @@ export default class AddPanel extends Component {
 
     putDataToDB = (songName, singerName, mode, partAndChords, genre) => {
         var chords = "";
-        partAndChords.map((entry, index)=>{
+        partAndChords.forEach((entry, index)=>{
             chords += entry.part + ":" + entry.chordsOfPart + '\n';      
         })
         this.setState({
@@ -76,7 +76,10 @@ export default class AddPanel extends Component {
 
       render() {
         const currentChords = this.state.partAndChords.map((entry, index) => {
-            return <p key={index}> {entry.part + "     " + entry.chordsOfPart}</p>
+            const chordsButtons = entry.chordsOfPart.map((chord, chordIndex) => {
+              return <button className="chordButton" onClick> {chord}</button>
+            });
+            return <p key={index}> {entry.part + "   " }{chordsButtons}</p>
         })
         return (
         <div className="songChordInputs">

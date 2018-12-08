@@ -81,7 +81,7 @@ export default class SongList extends Component {
           : this.state.data.map((dat, index) => (
             index === this.state.modifying ? (
               <div className="infoDiv" key={index}>
-              <li style={ {padding: "10px", width: "200px"}} >
+              <li className="songItem" style={ {pwidth: "200px"}} >
                 <span style={{ color: "gray" }}> Song: </span>
                 <input type='text' 
                   value={this.state.msongName}
@@ -107,11 +107,11 @@ export default class SongList extends Component {
                   value={this.state.mchords}
                   onChange={e=>this.setState({mchords: e.target.value})}></input>
               </li>
-              <button onClick={() => this.updateDB(index, this.state.msongName,
+              <button className="leftMargin40Button" onClick={() => this.updateDB(index, this.state.msongName,
                 this.state.msingerName, this.state.mgenre, this.state.mmode, this.state.mchords, dat._id)}>Update</button> 
               </div>) : (
               <div className="infoDiv" key={index}>
-              <li style={ {padding: "10px", width: "200px"}} >
+              <li className="songItem" style={ {width: "200px"}} >
                 <span style={{ color: "gray" }}> Song: </span>{dat.songName}
                 <br />
                 <span style={{ color: "gray" }}> Singer: </span>{dat.singerName}
@@ -122,8 +122,8 @@ export default class SongList extends Component {
                 <br />
                 <span style={{ color: "gray" }}> Chords: </span><label className="infoText">{dat.chords}</label>
               </li>
-              <button onClick={() => this.deleteFromDB(dat._id)}>Delete</button>
-              <button onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
+              <button className="leftMargin40Button" onClick={() => this.deleteFromDB(dat._id)}>Delete</button>
+              <button className="leftMargin20Button" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
               </div>)
               
             ))}
