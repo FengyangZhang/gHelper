@@ -11,7 +11,7 @@
     margin-right: 100px
 }
 
-.addButton{
+.doneButton{
     background: white;
     border: 1px solid #555555;
     color: #555555;
@@ -26,10 +26,26 @@
     height:4rem;
     width:4rem;
 }
-.addButton:hover{
+.doneButton:hover{
     background: #888888;
 }
-.addButton:active{
+.doneButton:active{
     background: #888888;
     transform: scale(1.2);
+}
+
+.chordButton{
+    background: white;
+    color: #555555;
+    font-weight: 600;
+    margin-left:1.5rem;
+    transition: transform .2s ease;
+}
+
+.chordButtonChosen{
+    background: rgb(101, 101, 253);
+    color: #555555;
+    font-weight: 600;
+    margin-left:1.5rem;
+    transition: transform .2s ease;
 }

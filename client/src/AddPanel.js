@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ChordHelper from "./ChordHelper";
 require('./css/AddPanel.css');
 
 export default class AddPanel extends Component {
@@ -22,6 +23,8 @@ export default class AddPanel extends Component {
               part: "solo",
               chordsOfPart: [],
             }],
+            chosenPart: -1,
+            chosenChord: -1,
         };
     }
 
@@ -74,10 +77,29 @@ export default class AddPanel extends Component {
         })
       }
 
+      onChooseChord(partIndex, chordIndex) {
+        this.setState({
+          chosenPart: partIndex,
+          chosenChord: chordIndex,
+        });
+      }
+
+      onResetChord() {
+        this.setState({
+          chosenPart: -1,
+          chosenChord: -1,
+        })
+      }
+
       render() {
         const currentChords = this.state.partAndChords.map((entry, index) => {
             const chordsButtons = entry.chordsOfPart.map((chord, chordIndex) => {
-              return <button className="chordButton" onClick> {chord}</button>
+              if(index === this.state.chosenPart && chordIndex === this.state.chosenChord) {
+                return <button className="chordButtonChosen" onClick={() => this.onResetChord()}>{chord}</button>
+              }
+              else {
+                return <button className="chordButton" onClick={() => this.onChooseChord(index, chordIndex)}> {chord}</button>
+              }
             });
             return <p key={index}> {entry.part + "   " }{chordsButtons}</p>
         })
@@ -134,14 +156,15 @@ export default class AddPanel extends Component {
               value={this.state.chordsInput}
               style={{ width: "200px" }}
             />
-            <button onClick={() => this.addChords(this.state.partOfSong, this.state.chordsInput)}>ADD</button>
+            <button className="addButton" onClick={() => this.addChords(this.state.partOfSong, this.state.chordsInput)}>ADD</button>
           </div>
           <div>
             {currentChords}
           </div>
-
+          {this.state.chosenChord !== -1 ? <ChordHelper chord= {this.state.partAndChords[this.state.chosenPart].chordsOfPart[this.state.chosenChord]} /> : <br/>}
+          
           <div>
-            <button className="addButton" onClick={() => this.putDataToDB(this.state.songName, this.state.singerName, 
+            <button className="doneButton" onClick={() => this.putDataToDB(this.state.songName, this.state.singerName, 
               this.state.mode, this.state.partAndChords, this.state.genre)}>
               DONE
             </button>
