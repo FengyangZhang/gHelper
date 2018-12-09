@@ -1,14 +1,8 @@
-/* .twoInputDiv{ */
-    /* vertical-align: top; */
-    /* width: 150px; */
-    /* float: left; */
-    /* margin-left: 100px; */
-/* } */
 .infoDiv{
     display:inline-block; 
 }
 .standardInput{
-    margin-right: 100px
+    margin-right: 60px
 }
 
 .doneButton{

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ChordHelper from "./ChordHelper";
+import ModeHelper from "./ModeHelper";
 require('./css/AddPanel.css');
 
 export default class AddPanel extends Component {
@@ -48,6 +49,8 @@ export default class AddPanel extends Component {
             part: "solo",
             chordsOfPart: [],
           }],
+          chosenChord: -1,
+          chosenPart: -1,
         });
         axios.post("/api/putData", {
           songName: songName,
@@ -110,7 +113,7 @@ export default class AddPanel extends Component {
             <input className="standardInput"
               type="text"
               onChange={e => this.setState({ songName: e.target.value })}
-              placeholder=""
+              placeholder="歌曲名"
               value={this.state.songName}
               style={{ width: "200px" }}
             />
@@ -119,7 +122,7 @@ export default class AddPanel extends Component {
               type="text"
               style={{ width: "200px" }}
               onChange={e => this.setState({ singerName: e.target.value })}
-              placeholder=""
+              placeholder="歌手/乐队名"
               value={this.state.singerName}
             />
           </div>
@@ -128,18 +131,23 @@ export default class AddPanel extends Component {
             <input className="standardInput"
               type="text"
               onChange={e => this.setState({ genre: e.target.value })}
-              placeholder=""
+              placeholder="歌曲类别"
               style={{ width: "200px" }}
               value={this.state.genre}
             />
-            Mode of the song:
-            <input className="standardInput"
-              type="text"
+            Mode:{"\t"}
+            <input list="modes" 
+              placeholder="调式名"
               onChange={e => this.setState({ mode: e.target.value })}
-              placeholder=""
               style={{ width: "200px" }}
               value={this.state.mode}
-            />
+              />
+            <datalist id="modes">
+                <option value="C大调"/>
+                <option value="C小调"/>
+                <option value="A大调"/>
+            </datalist>
+            {this.state.mode !== "" ? <ModeHelper mode={this.state.mode} /> : <br />}
           </div>
           <div style={{ padding: "10px" }}>
             <p>chords in the song(you can choose verse, chorus, etc.):</p>
@@ -152,7 +160,7 @@ export default class AddPanel extends Component {
             <input
               type="text"
               onChange={e => this.setState({ chordsInput: e.target.value })}
-              placeholder=""
+              placeholder="和弦名称"
               value={this.state.chordsInput}
               style={{ width: "200px" }}
             />
@@ -162,7 +170,6 @@ export default class AddPanel extends Component {
             {currentChords}
           </div>
           {this.state.chosenChord !== -1 ? <ChordHelper chord= {this.state.partAndChords[this.state.chosenPart].chordsOfPart[this.state.chosenChord]} /> : <br/>}
-          
           <div>
             <button className="doneButton" onClick={() => this.putDataToDB(this.state.songName, this.state.singerName, 
               this.state.mode, this.state.partAndChords, this.state.genre)}>
