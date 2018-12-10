@@ -159,7 +159,7 @@ export default class AddPanel extends Component {
                 <option value="b小调"> b小调</option>
                 <option value="c小调"> c小调</option>
                 <option value="c#小调"> c#小调</option>
-                <option value="c小调"> c小调</option>
+                <option value="d小调"> d小调</option>
                 <option value="eb小调"> eb小调</option>
                 <option value="e小调"> e小调</option>
                 <option value="f小调"> f小调</option>
