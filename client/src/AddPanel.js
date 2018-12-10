@@ -143,29 +143,29 @@ export default class AddPanel extends Component {
               onChange={e=>this.setState({mode: e.target.value})}>
                 <option value=""> 选择调式：</option>
                 <option value="C大调"> C大调</option>
-                <option value="Db大调"> Db/C#大调</option>
+                <option value="Db大调"> Db大调</option>
                 <option value="D大调"> D大调</option>
                 <option value="Eb大调"> Eb大调</option>
                 <option value="E大调"> E大调</option>
                 <option value="F大调"> F大调</option>
-                <option value="Gb大调"> F#/Gb大调</option>
+                <option value="Gb大调"> Gb大调</option>
                 <option value="G大调"> G大调</option>
                 <option value="Ab大调"> Ab大调</option>
                 <option value="A大调"> A大调</option>
                 <option value="Bb大调"> Bb大调</option>
-                <option value="B大调"> Cb/B大调</option>
+                <option value="B大调"> B大调</option>
                 <option value="a小调"> a小调</option>
-                <option value="bb小调"> a#/bb小调</option>
+                <option value="bb小调"> bb小调</option>
                 <option value="b小调"> b小调</option>
                 <option value="c小调"> c小调</option>
                 <option value="c#小调"> c#小调</option>
                 <option value="c小调"> c小调</option>
-                <option value="eb小调"> d#/eb小调</option>
+                <option value="eb小调"> eb小调</option>
                 <option value="e小调"> e小调</option>
                 <option value="f小调"> f小调</option>
                 <option value="f#小调"> f#小调</option>
                 <option value="g小调"> g小调</option>
-                <option value="g#小调"> g#/ab小调</option>
+                <option value="g#小调"> g#小调</option>
             </select>
             {this.state.mode !== "" ? <ModeHelper mode={this.state.mode} /> : <br />}
           </div>
