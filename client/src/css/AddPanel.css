@@ -2,7 +2,7 @@
     display:inline-block; 
 }
 .standardInput{
-    margin-right: 60px
+    margin-right: 60px;
 }
 
 .doneButton{
@@ -42,4 +42,9 @@
     font-weight: 600;
     margin-left:1.5rem;
     transition: transform .2s ease;
+}
+
+.twoInputDiv{
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
