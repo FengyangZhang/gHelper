@@ -2,6 +2,13 @@ import React, { Component } from "react";
 require('./css/ModeHelper.css');
 
 export default class ModeHelper extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            showNotes: true,
+        };
+        this.modeToPitches(this.props.mode);
+    }
 
     modeToPitches(mode) {
         const isMajor = mode.indexOf("大") !== -1 ? 1 : 0;
@@ -14,7 +21,7 @@ export default class ModeHelper extends Component {
         var lastNote;
         for (let note of notes){
             if(note === modeName) {
-                notesInMode.push(<i key={0}>{note+'\t'}</i>);
+                notesInMode.push(note);
                 lastNote = note;
                 break;
             }
@@ -22,12 +29,12 @@ export default class ModeHelper extends Component {
                 var n1 = note.split('/')[0];
                 var n2 = note.split('/')[1];
                 if(n1 === modeName) {
-                    notesInMode.push(<i key={0}>{n1+'\t'}</i>);
+                    notesInMode.push(n1);
                     lastNote = n1;
                     break;
                 }
                 else if(n2 === modeName) {
-                    notesInMode.push(<i key={0}>{n2+'\t'}</i>);
+                    notesInMode.push(n2);
                     lastNote = n2;
                     break;
                 }
@@ -45,17 +52,56 @@ export default class ModeHelper extends Component {
                     curNote = n2;
                 }
             }
-            notesInMode.push(<i key={index+1}>{curNote+'\t'}</i>);
+            notesInMode.push(curNote);
             lastNote = curNote;
         });
-        return <i>{notesInMode}</i>;
+        var chordsInMode = [];
+        //大小一，四，五级和弦为大三和弦，小调则是三，六，七级，大调七级为减三和弦，小调二级。
+        const majors = isMajor ? [1, 4, 5] : [3, 6, 7];
+        const dims = isMajor ? [7] : [2];
+        notesInMode.slice(0, 7).forEach((note, index) => {
+            if(dims.includes(index+1)){
+                chordsInMode.push(note+"dim");
+            }
+            else if(majors.includes(index+1)){
+                chordsInMode.push(note);
+            }
+            else{
+                chordsInMode.push(note+"m");
+            }
+        });
+        
+        this.notesInMode = notesInMode;
+        this.chordsInMode = chordsInMode;
     }
 
+    switchNotesAndChords(){
+        this.setState({
+            showNotes: !this.state.showNotes,
+        })
+    }
 
     render() {
+        const intro = this.state.showNotes ? 
+            this.props.mode + "的构成音如下: ":
+            this.props.mode + "的构成和弦如下: ";
+        const switchButton = this.state.showNotes ? 
+            <button onClick={()=>this.switchNotesAndChords()}>See chords</button> :
+            <button onClick={()=>this.switchNotesAndChords()}>See notes</button>;
+
+        const rendered = this.state.showNotes ? 
+            this.notesInMode.map((note, index) => {
+                return <i key={index}>{note+"\t"}</i>
+            })
+            : 
+            this.chordsInMode.map((note, index) => {
+                return <i key={index}>{note+"\t"}</i>
+            });
         return (
             <div className="modeHelperDiv">
-                {this.props.mode}，构成音如下: {this.modeToPitches(this.props.mode)}
+                {intro}
+                {rendered}
+                {switchButton}
             </div>
         );
     }
