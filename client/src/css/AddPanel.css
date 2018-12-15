@@ -42,9 +42,28 @@
     font-weight: 600;
     margin-left:1.5rem;
     transition: transform .2s ease;
+    position:relative;top:10px; left:9px;
 }
 
 .twoInputDiv{
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.chordEntryDiv{
+    margin-bottom: 20px
+}
+#chordButtonOuter{display:inline-block;}
+#chordButtonInner{
+    background:url('../pic/delete_chord.svg') no-repeat 0px 0px;
+    background-color: #EE0000;
+    position:relative;
+    color:#FFFFFF; 
+    font-weight:bold;
+    width:10px;
+    height:20px;
+    cursor:pointer;
+}
+#chordButtonInner:hover{
+    background-color: #00EE00;
 }

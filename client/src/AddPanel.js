@@ -62,6 +62,9 @@ export default class AddPanel extends Component {
       };
     
       addChords(partOfSong, chordsInput){
+        if(chordsInput === "") {
+          return;
+        }
         var cur = this.state.partAndChords;
         var p = 0;
         if(partOfSong === "verse") {
@@ -94,17 +97,30 @@ export default class AddPanel extends Component {
         })
       }
 
+      onDeleteChord(partIndex, chordIndex) {
+        var cur = this.state.partAndChords;
+        cur[partIndex].chordsOfPart.splice(chordIndex, 1);
+        this.setState({
+          partAndChords: cur,
+          chosenPart: -1,
+          chosenChord: -1,
+        })
+      }
+
       render() {
         const currentChords = this.state.partAndChords.map((entry, index) => {
             const chordsButtons = entry.chordsOfPart.map((chord, chordIndex) => {
               if(index === this.state.chosenPart && chordIndex === this.state.chosenChord) {
-                return <button className="chordButtonChosen" onClick={() => this.onResetChord()}>{chord}</button>
+                return <div id="chordButtonOuter" key={chordIndex}>
+                  <button className="chordButtonChosen" onClick={() => this.onResetChord()}>{chord}</button>
+                  <button id="chordButtonInner" onClick={() => this.onDeleteChord(index, chordIndex)}></button>
+                </div>
               }
               else {
-                return <button className="chordButton" onClick={() => this.onChooseChord(index, chordIndex)}> {chord}</button>
+                return <div id="chordButtonOuter" key={chordIndex}><button className="chordButton" onClick={() => this.onChooseChord(index, chordIndex)}> {chord}</button></div>
               }
             });
-            return <p key={index}> {entry.part + "   " }{chordsButtons}</p>
+            return <div className="chordEntryDiv" key={index}> {entry.part + "   " }{chordsButtons}</div>
         })
         return (
         <div className="songChordInputs">
