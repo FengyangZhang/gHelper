@@ -3,10 +3,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const songChord = require("./data");
-
+const rp = require("request-promise");
+const cheerio = require("cheerio"); 
 const API_PORT = 3001;
 const app = express();
 const router = express.Router();
+require('express-async-await')(app)
 
 // this is our MongoDB database
 const dbRoute = "mongodb://FengyangZ:VivaLaVida1@ds035965.mlab.com:35965/ghelperdb";
@@ -26,9 +28,44 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
+
+
+
+function getPath(url){
+  var _include_headers = function(body, response, resolveWithFullResponse) {
+    return {'headers': response.headers, 'data': body};
+  };
+  var options = {
+    method: 'GET',
+    url: url,
+    json: true,
+    transform: _include_headers,
+  }
+  return rp(options)
+  .then(function(response) {
+    return getUrl(response.data)[0].url;
+  })
+  .catch(function(err) {
+    return err;
+  });
+}
+
+function getUrl(data) {
+  let list = [];
+  const $ = cheerio.load(data);
+  $(".topContent img")
+    .each(async (i, e) => {
+      let obj = {
+        name: e.attribs.alt,
+        url: e.attribs.src
+      };
+      list.push(obj);
+    });
+  return list;
+}
 
 // this is our get method
 // this method fetches all available data in our database
@@ -37,6 +74,12 @@ router.get("/getData", (req, res) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: data });
   });
+});
+
+router.get("/getChordImage", async function(req, res){
+  const {chord} = req.query;
+  const url = "https://www.chordie.com/voicings.php?tuning=EADGBE&chord="+chord;
+  return res.json(await getPath(url));
 });
 
 // this is our create methid

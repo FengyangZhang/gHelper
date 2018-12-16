@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "concurrently": "^4.1.0",
+    "express-async-await": "^1.1.0",
+    "express-promise-router": "^3.0.3",
     "node-sass": "^4.10.0",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   }
 }

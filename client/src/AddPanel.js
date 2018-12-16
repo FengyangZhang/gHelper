@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import ChordHelper from "./ChordHelper";
 import ModeHelper from "./ModeHelper";
 require('./css/AddPanel.css');
 
@@ -26,6 +25,7 @@ export default class AddPanel extends Component {
             }],
             chosenPart: -1,
             chosenChord: -1,
+            imgUrl: "",
         };
     }
 
@@ -84,6 +84,19 @@ export default class AddPanel extends Component {
       }
 
       onChooseChord(partIndex, chordIndex) {
+        axios.get("/api/getChordImage", {
+          params: {
+              chord: this.state.partAndChords[partIndex].chordsOfPart[chordIndex]
+          }
+        })
+        .then(response => {
+          if(JSON.stringify(response.data) === "{}") {
+            this.setState({imgUrl: require('./pic/cantfind.png')})
+          }
+          else{
+            this.setState({imgUrl: response.data});            
+          }
+        })
         this.setState({
           chosenPart: partIndex,
           chosenChord: chordIndex,
@@ -117,7 +130,9 @@ export default class AddPanel extends Component {
                 </div>
               }
               else {
-                return <div id="chordButtonOuter" key={chordIndex}><button className="chordButton" onClick={() => this.onChooseChord(index, chordIndex)}> {chord}</button></div>
+                return <div id="chordButtonOuter" key={chordIndex}>
+                  <button className="chordButton" onClick={() => this.onChooseChord(index, chordIndex)}> {chord}</button>
+                </div>
               }
             });
             return <div className="chordEntryDiv" key={index}> {entry.part + "   " }{chordsButtons}</div>
@@ -205,7 +220,11 @@ export default class AddPanel extends Component {
           <div>
             {currentChords}
           </div>
-          {this.state.chosenChord !== -1 ? <ChordHelper chord= {this.state.partAndChords[this.state.chosenPart].chordsOfPart[this.state.chosenChord]} /> : <br/>}
+          {this.state.chosenChord !== -1 ? 
+            <img alt="chord" src={this.state.imgUrl} width="100px"/> 
+            : 
+            <br/>
+          }
           <div>
             <button className="doneButton" onClick={() => this.putDataToDB(this.state.songName, this.state.singerName, 
               this.state.mode, this.state.partAndChords, this.state.genre)}>
