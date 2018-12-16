@@ -207,7 +207,7 @@ export default class AddPanel extends Component {
                 <option value="g小调"> g小调</option>
                 <option value="g#小调"> g#小调</option>
             </select>
-            {this.state.mode !== "" ? <ModeHelper mode={this.state.mode} /> : <br />}
+            {this.state.mode !== "" ? <ModeHelper key={this.state.mode} mode={this.state.mode} /> : <br />}
           </div>
           <div style={{ padding: "10px" }}>
             <p>chords in the song(you can choose verse, chorus, etc.):</p>
