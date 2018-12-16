@@ -137,6 +137,15 @@ export default class AddPanel extends Component {
             });
             return <div className="chordEntryDiv" key={index}> {entry.part + "   " }{chordsButtons}</div>
         })
+
+
+        const chordImg = this.state.chosenChord !== -1 ?
+          <div>
+            <img alt="chord" src={this.state.imgUrl} width="100px"/> 
+            <i>Chords images are fetched from Chordie.com</i>
+          </div>
+          : 
+          <br/>
         return (
         <div className="songChordInputs">
           <div className="twoInputDiv" style={{ padding: "10px" }}>
@@ -220,11 +229,7 @@ export default class AddPanel extends Component {
           <div>
             {currentChords}
           </div>
-          {this.state.chosenChord !== -1 ? 
-            <img alt="chord" src={this.state.imgUrl} width="100px"/> 
-            : 
-            <br/>
-          }
+          {chordImg}
           <div>
             <button className="doneButton" onClick={() => this.putDataToDB(this.state.songName, this.state.singerName, 
               this.state.mode, this.state.partAndChords, this.state.genre)}>
