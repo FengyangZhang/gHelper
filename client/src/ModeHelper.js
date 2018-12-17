@@ -56,7 +56,7 @@ export default class ModeHelper extends Component {
             lastNote = curNote;
         });
         var chordsInMode = [];
-        //大小一，四，五级和弦为大三和弦，小调则是三，六，七级，大调七级为减三和弦，小调二级。
+        //大调一，四，五级和弦为大三和弦，小调则是三，六，七级，大调七级为减三和弦，小调二级。
         const majors = isMajor ? [1, 4, 5] : [3, 6, 7];
         const dims = isMajor ? [7] : [2];
         notesInMode.slice(0, 7).forEach((note, index) => {
