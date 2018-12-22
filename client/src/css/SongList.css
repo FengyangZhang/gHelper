@@ -7,10 +7,18 @@
 }
 
 .songItem{
-    background:url('../pic/note.jpeg') no-repeat 0px 0px;
+    background:url('../pic/note.png') no-repeat -1px 0px;
     padding-left:40px;
     background-size:40px 30px;
     list-style:none;
+}
+
+.songItem:hover{
+    background-color: #AAAAAA;
+}
+
+.songItem:active{
+    background-color: #AAAAAA;
 }
 
 .leftMargin40Button{

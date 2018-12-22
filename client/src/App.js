@@ -6,12 +6,24 @@ class App extends Component {
     render() {
         return (
             <div className="APP">
-                <div className="upperDiv">
-                    <button className="menuButton"><Link to="/songlist">See listed songs</Link></button>
-                </div>
-                <div className="lowerDiv">
-                    <button className="menuButton"><Link to="/addpanel">Go to add songs</Link></button>
-                </div>
+                <Link to="/songlist" style={{ textDecoration: 'none', color: 'black'}}>
+                    <div className="upperDiv">
+                        <div className="bgDiv">
+                        </div>
+                        <div className="textDiv">
+                            <font className="entryText" size="3">See listed songs</font>
+                        </div>
+                    </div>
+                </Link>
+                <Link to="/addpanel" style={{ textDecoration: 'none', color: 'black'}}>
+                    <div className="lowerDiv">
+                        <div className="bgDiv">
+                        </div>
+                        <div className="textDiv">
+                            <font className="entryText" size="3">Add songs</font>
+                        </div>
+                    </div>
+                </Link>
             </div>
         );
     }
