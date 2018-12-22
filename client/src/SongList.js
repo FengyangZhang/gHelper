@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import MainMenu from "./MainMenu";
 require('./css/SongList.css');
 
 export default class SongList extends Component {
@@ -75,6 +76,7 @@ export default class SongList extends Component {
     render() {
         return (
         <div>
+        <MainMenu/>
         <ul>
         {this.state.data.length <= 0
           ? "NO SONG LISTED YET"

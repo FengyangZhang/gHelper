@@ -12,7 +12,7 @@ import SongList from "./SongList";
 const routes = (
     <Router>
         <div>
-        <Route path="/" component={App} />
+        <Route path="/" exact component={App} />
         <Route path = "/songlist" component = {SongList}/>
         <Route path = "/addpanel" component = {AddPanel}/>
         </div>

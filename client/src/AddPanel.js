@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ModeHelper from "./ModeHelper";
+import MainMenu from "./MainMenu";
 require('./css/AddPanel.css');
 
 export default class AddPanel extends Component {
@@ -148,6 +149,7 @@ export default class AddPanel extends Component {
           <br/>
         return (
         <div className="songChordInputs">
+        <MainMenu/>
           <div className="twoInputDiv" style={{ padding: "10px" }}>
             Name of the song:
             <input className="standardInput"

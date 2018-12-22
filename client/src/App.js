@@ -6,9 +6,12 @@ class App extends Component {
     render() {
         return (
             <div className="APP">
-                <button className="menuButton"><Link to="/">Home</Link></button>
-                <button className="menuButton"><Link to="/songlist">See listed songs</Link></button>
-                <button className="menuButton"><Link to="/addpanel">Go to add songs</Link></button>
+                <div className="upperDiv">
+                    <button className="menuButton"><Link to="/songlist">See listed songs</Link></button>
+                </div>
+                <div className="lowerDiv">
+                    <button className="menuButton"><Link to="/addpanel">Go to add songs</Link></button>
+                </div>
             </div>
         );
     }
