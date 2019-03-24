@@ -50,6 +50,7 @@ html, body {
 #root{
     height: 100%;
     width:100%;
+    background: rgb(206, 211, 214);
     display: -moz-box;/*兼容Firefox*/
     display: -webkit-box;/*兼容FSafari、Chrome*/
     -moz-box-align: center;
@@ -61,7 +62,9 @@ html, body {
 .mainDiv{
     height: 100%;
     width:60%;
-    border:1px solid #000;
+    border:1px;
+    background: white;
+    
 }
 .APP{
     height: 100%;
