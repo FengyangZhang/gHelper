@@ -11,11 +11,13 @@ import SongList from "./SongList";
 
 const routes = (
     <Router>
+        
         <div className="mainDiv">
         <Route path="/" exact component={App} />
         <Route path = "/songlist" component = {SongList}/>
         <Route path = "/addpanel" component = {AddPanel}/>
         </div>
+        
     </Router>
   );
 ReactDOM.render(routes, document.getElementById('root'));

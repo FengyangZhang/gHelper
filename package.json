@@ -10,12 +10,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "concurrently": "^4.1.0",
     "express-async-await": "^1.1.0",
     "express-promise-router": "^3.0.3",
+    "mongoose": "^5.4.19",
+    "morgan": "^1.9.1",
     "node-sass": "^4.10.0",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "react-native-scripts": "^2.0.1",
     "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.8",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
   }

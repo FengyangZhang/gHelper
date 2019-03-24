@@ -14,11 +14,11 @@
 }
 
 .songItem:hover{
-    background-color: #AAAAAA;
+    background-color: #DEDEE9;
 }
 
 .songItem:active{
-    background-color: #AAAAAA;
+    background-color: #DEDEE9;
 }
 
 .leftMargin40Button{
