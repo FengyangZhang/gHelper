@@ -151,6 +151,7 @@ export default class AddPanel extends Component {
         <div className="songChordInputs">
         <MainMenu/>
           <div className="twoInputDiv" style={{ padding: "10px" }}>
+          <div className="singleInputDiv">
             Name of the song:
             <input className="standardInput"
               type="text"
@@ -159,6 +160,8 @@ export default class AddPanel extends Component {
               value={this.state.songName}
               style={{ width: "200px" }}
             />
+            </div>
+            <div className="singleInputDiv">
             Singer:
             <input className="standardInput"
               type="text"
@@ -167,8 +170,11 @@ export default class AddPanel extends Component {
               placeholder="歌手/乐队名"
               value={this.state.singerName}
             />
+            </div>
           </div>
+        
           <div className="twoInputDiv" style={{ padding: "10px" }}>
+          <div className="singleInputDiv">
             Genre of the song:
             <input className="standardInput"
               type="text"
@@ -177,6 +183,8 @@ export default class AddPanel extends Component {
               style={{ width: "200px" }}
               value={this.state.genre}
             />
+            </div>
+            <div className="singleInputDiv">
             Mode:{"\t"}
             <select className = "modeNameList"
               style={{ width: "200px" }}
@@ -211,16 +219,18 @@ export default class AddPanel extends Component {
             </select>
             {this.state.mode !== "" ? <ModeHelper key={this.state.mode} mode={this.state.mode} /> : <br />}
           </div>
-          <div style={{ padding: "10px" }}>
+         </div>
+         <div className="singleInputDiv">
             <p>chords in the song(you can choose verse, chorus, etc.):</p>
             <select className = "partOfSongSelector"
               onChange={e=>this.setState({partOfSong: e.target.value})}>
-              <option value ="verse">verse</option>
+              <option value ="verse" selected = "selected">verse</option>
               <option value ="chorus">chorus</option>
               <option value ="solo">solo</option>
             </select>
-            <input
+            <input className = "standardInput"
               type="text"
+              
               onChange={e => this.setState({ chordsInput: e.target.value })}
               placeholder="和弦名称"
               value={this.state.chordsInput}
