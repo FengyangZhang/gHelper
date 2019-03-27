@@ -2,9 +2,27 @@
     display:inline-block; 
 }
 .standardInput{
-    margin-right: 60px;
+    
+    border: 1px solid #ccc;
+    padding: 7px 0px;
+    border-radius: 3px;
+    padding-left:5px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+            
 }
+.addButton{
+    margin: 5px;
+    padding: 10px 25px;
+    
 
+    text-align: center;
+    display: inline-block;
+    border-radius:5px; 
+}
 .doneButton{
     background: white;
     border: 1px solid #555555;
@@ -48,7 +66,9 @@
 .twoInputDiv{
     overflow-x: hidden;
 }
-
+.singleInputDiv{
+  margin: 10px;
+}
 .chordEntryDiv{
     margin-bottom: 20px
 }
@@ -65,4 +85,18 @@
 }
 #chordButtonInner:hover{
     background-color: #00EE00;
+}
+
+.partOfSongSelector{
+    
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin:10px;
+}
+.modeNameList{
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin:10px;
 }
