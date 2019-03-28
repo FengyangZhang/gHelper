@@ -6,5 +6,5 @@ This web app is designed to help guitarists note down the songs they just transc
 - [x] 添加和弦介绍组件
 - [ ] 添加可以由组成音构想到和弦的组件
 - [ ] 添加歌曲搜索功能
-- [ ] 添加歌曲详细信息组件
+- [x] 添加歌曲详细信息组件
 - [ ] 添加用户登录系统
