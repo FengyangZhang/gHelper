@@ -29,20 +29,19 @@ export default class SongList extends Component {
         };
     }
     
-    
     handleCancel = () => {
       this.setState({ visible: false });
     }
-    showModal = (songName, singerName, genre, mode, chords)=>{
+
+    showModal = (songName, singerName, genre, mode, chords) => {
       this.setState({
-        visible:true,
-        psongName:songName,
-        psingerName:singerName,
-        pgenre:genre,
-        pmode:mode,
-        pchords:chords
+        visible: true,
+        psongName: songName,
+        psingerName: singerName,
+        pgenre: genre,
+        pmode: mode,
+        pchords: chords,
       });
-      console.log(songName);
     }
 
     // when component mounts, first thing it does is fetch all existing data in our db
@@ -107,8 +106,7 @@ export default class SongList extends Component {
     }
 
     render() {
-      const {visible, loading,psongName,psingerName,pgenre,pchords,pmode} = this.state;
-     
+      const {visible, loading, psongName, psingerName, pgenre, pchords, pmode} = this.state;
         return (
         <div>
         <MainMenu/>
@@ -162,30 +160,24 @@ export default class SongList extends Component {
               {/* <button className="leftMargin40Button" onClick={() => this.deleteFromDB(dat._id)}>Delete</button> */}
               <button className="leftMargin20Button" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
               <Button type="default" onClick={()=>this.showModal(dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Details</Button>
-              <div>
-              
               <Modal
                   visible={visible}                 
                   title="Details"
-                  onOk={this.handleOk}
                   onCancel={this.handleCancel}
                   footer={[
                     <Button key="back" onClick={this.handleCancel}>Return</Button>,                 
                     <Button type = "danger" onClick={() => this.deleteFromDB(dat._id)}>Delete</Button>,
-                    <Button type = "primary" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)} >Modify</Button>,
+                    <Button type = "primary">Modify</Button>,
                   ]}>                             
                   <p> Song:{psongName} </p>               
                   <p> Singer:{psingerName} </p>              
                   <p> Genre:{pgenre} </p>             
                   <p> Mode: {pmode}</p>               
                   <p> Chords:{pchords} </p>
-              
               </Modal>
-        </div>
-              </div>)
-              
-            ))}
+            </div>)
+          ))}
       </ul>
-      </div>
-      )}
+    </div>
+  )}
 }
