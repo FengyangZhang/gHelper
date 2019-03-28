@@ -23,12 +23,7 @@ export default class SongList extends Component {
           visible:false,
         };
     }
-    showModal = ()=>{
-      this.setState({
-        visible:true,
-      });
-      console.log("show");
-    }
+    
     
     handleCancel = () => {
       this.setState({ visible: false });
@@ -84,7 +79,12 @@ export default class SongList extends Component {
             update: { songName: songName, singerName: singerName, genre: genre, mode:mode, chords:chords }
         });
     };
-    
+    showModal = (songName, singerName, genre, mode, chords)=>{
+      this.setState({
+        visible:true,
+      });
+      console.log(songName);
+    }
     setModifying(index, songName, singerName, genre, mode, chords) {
         this.setState({
           modifying: index,
@@ -151,7 +151,7 @@ export default class SongList extends Component {
               </li>
               {/* <button className="leftMargin40Button" onClick={() => this.deleteFromDB(dat._id)}>Delete</button> */}
               <button className="leftMargin20Button" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
-              <Button type="default" onClick={this.showModal}>Details</Button>
+              <Button type="default" onClick={()=>this.showModal(dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Details</Button>
               <div>
               
               <Modal
@@ -171,15 +171,15 @@ export default class SongList extends Component {
                   ]}
         >
                 
-                <p> Song: {dat.songName}</p>
+                <p> Song: </p>
                 
-                <p> Singer: {dat.singerName}</p>
+                <p> Singer: </p>
                
-                <p> Genre: {dat.genre}</p>
+                <p> Genre: </p>
               
-                <p> Mode: {dat.mode}</p>
+                <p> Mode: </p>
                 
-                <p> Chords: {dat.chords}</p>
+                <p> Chords: </p>
               
         </Modal>
         </div>
