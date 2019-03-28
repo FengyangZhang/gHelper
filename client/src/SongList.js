@@ -21,6 +21,11 @@ export default class SongList extends Component {
           mchords: "",
           loading:false,
           visible:false,
+          psongName:"",
+          psingerName:"",
+          pmode:"",
+          pgenre:"",
+          pchords:""
         };
     }
     
@@ -28,7 +33,17 @@ export default class SongList extends Component {
     handleCancel = () => {
       this.setState({ visible: false });
     }
-  
+    showModal = (songName, singerName, genre, mode, chords)=>{
+      this.setState({
+        visible:true,
+        psongName:songName,
+        psingerName:singerName,
+        pgenre:genre,
+        pmode:mode,
+        pchords:chords
+      });
+      console.log(songName);
+    }
 
     // when component mounts, first thing it does is fetch all existing data in our db
     // then we incorporate a polling logic so that we can easily see if our db has 
@@ -79,12 +94,7 @@ export default class SongList extends Component {
             update: { songName: songName, singerName: singerName, genre: genre, mode:mode, chords:chords }
         });
     };
-    showModal = (songName, singerName, genre, mode, chords)=>{
-      this.setState({
-        visible:true,
-      });
-      console.log(songName);
-    }
+
     setModifying(index, songName, singerName, genre, mode, chords) {
         this.setState({
           modifying: index,
@@ -97,7 +107,7 @@ export default class SongList extends Component {
     }
 
     render() {
-      const {visible, loading} = this.state;
+      const {visible, loading,psongName,psingerName,pgenre,pchords,pmode} = this.state;
      
         return (
         <div>
@@ -155,33 +165,22 @@ export default class SongList extends Component {
               <div>
               
               <Modal
-                  visible={visible}
+                  visible={visible}                 
                   title="Details"
                   onOk={this.handleOk}
                   onCancel={this.handleCancel}
-
                   footer={[
-                    <Button key="back" onClick={this.handleCancel}>Return</Button>,
-                  
-                    <Button type = "danger" onClick={() => this.deleteFromDB(dat._id)}>Delete
-                    </Button>,
-                    <Button type = "primary" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)} >
-                    Modify
-                    </Button>,
-                  ]}
-        >
-                
-                <p> Song: </p>
-                
-                <p> Singer: </p>
-               
-                <p> Genre: </p>
+                    <Button key="back" onClick={this.handleCancel}>Return</Button>,                 
+                    <Button type = "danger" onClick={() => this.deleteFromDB(dat._id)}>Delete</Button>,
+                    <Button type = "primary" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)} >Modify</Button>,
+                  ]}>                             
+                  <p> Song:{psongName} </p>               
+                  <p> Singer:{psingerName} </p>              
+                  <p> Genre:{pgenre} </p>             
+                  <p> Mode: {pmode}</p>               
+                  <p> Chords:{pchords} </p>
               
-                <p> Mode: </p>
-                
-                <p> Chords: </p>
-              
-        </Modal>
+              </Modal>
         </div>
               </div>)
               
