@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import MainMenu from "./MainMenu";
+import {Button} from 'antd';
+import {Modal} from 'antd';
+import 'antd/dist/antd.css';
+
 require('./css/SongList.css');
 
 export default class SongList extends Component {
@@ -15,8 +19,16 @@ export default class SongList extends Component {
           mmode: "",
           mgenre: "",
           mchords: "",
+          loading:false,
+          visible:false,
         };
     }
+    
+    
+    handleCancel = () => {
+      this.setState({ visible: false });
+    }
+  
 
     // when component mounts, first thing it does is fetch all existing data in our db
     // then we incorporate a polling logic so that we can easily see if our db has 
@@ -50,6 +62,12 @@ export default class SongList extends Component {
             id: idToDelete
           }
         });
+        this.setState({ visible: false });
+        this.setState({ loading: true });
+      setTimeout(() => {
+        this.setState({ loading: false, visible: false });
+      }, 1000);
+
     };
     
     updateDB = (index, songName, singerName, genre, mode, chords, id) => {
@@ -61,7 +79,12 @@ export default class SongList extends Component {
             update: { songName: songName, singerName: singerName, genre: genre, mode:mode, chords:chords }
         });
     };
-    
+    showModal = (songName, singerName, genre, mode, chords)=>{
+      this.setState({
+        visible:true,
+      });
+      console.log(songName);
+    }
     setModifying(index, songName, singerName, genre, mode, chords) {
         this.setState({
           modifying: index,
@@ -74,6 +97,8 @@ export default class SongList extends Component {
     }
 
     render() {
+      const {visible, loading} = this.state;
+     
         return (
         <div>
         <MainMenu/>
@@ -120,12 +145,44 @@ export default class SongList extends Component {
                 <br />
                 <span style={{ color: "gray" }}> Genre: </span>{dat.genre}
                 <br />
-                <span style={{ color: "gray" }}> Mode: </span>{dat.mode}
+                <span style={{ color: "gray" }}> Mode: {dat.mode}</span>
                 <br />
-                <span style={{ color: "gray" }}> Chords: </span><label className="infoText">{dat.chords}</label>
+                <span style={{ color: "gray" }}> Chords: {dat.chords}</span>
               </li>
-              <button className="leftMargin40Button" onClick={() => this.deleteFromDB(dat._id)}>Delete</button>
+              {/* <button className="leftMargin40Button" onClick={() => this.deleteFromDB(dat._id)}>Delete</button> */}
               <button className="leftMargin20Button" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
+              <Button type="default" onClick={()=>this.showModal(dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Details</Button>
+              <div>
+              
+              <Modal
+                  visible={visible}
+                  title="Details"
+                  onOk={this.handleOk}
+                  onCancel={this.handleCancel}
+
+                  footer={[
+                    <Button key="back" onClick={this.handleCancel}>Return</Button>,
+                  
+                    <Button type = "danger" onClick={() => this.deleteFromDB(dat._id)}>Delete
+                    </Button>,
+                    <Button type = "primary" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)} >
+                    Modify
+                    </Button>,
+                  ]}
+        >
+                
+                <p> Song: </p>
+                
+                <p> Singer: </p>
+               
+                <p> Genre: </p>
+              
+                <p> Mode: </p>
+                
+                <p> Chords: </p>
+              
+        </Modal>
+        </div>
               </div>)
               
             ))}
