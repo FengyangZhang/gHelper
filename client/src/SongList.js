@@ -25,7 +25,8 @@ export default class SongList extends Component {
           psingerName:"",
           pmode:"",
           pgenre:"",
-          pchords:""
+          pchords:"",
+          pid:"",
         };
     }
     
@@ -33,7 +34,7 @@ export default class SongList extends Component {
       this.setState({ visible: false });
     }
 
-    showModal = (songName, singerName, genre, mode, chords) => {
+    showModal = (songName, singerName, genre, mode, chords, id) => {
       this.setState({
         visible: true,
         psongName: songName,
@@ -41,6 +42,7 @@ export default class SongList extends Component {
         pgenre: genre,
         pmode: mode,
         pchords: chords,
+        pid: id,
       });
     }
 
@@ -71,17 +73,17 @@ export default class SongList extends Component {
     };
 
     deleteFromDB = idToDelete => {
-        axios.delete("/api/deleteData", {
-          data: {
-            id: idToDelete
-          }
-        });
-        this.setState({ visible: false });
-        this.setState({ loading: true });
+      console.log(idToDelete);
+      axios.delete("/api/deleteData", {
+        data: {
+          id: idToDelete
+        }
+      });
+      this.setState({ visible: false });
+      this.setState({ loading: true });
       setTimeout(() => {
         this.setState({ loading: false, visible: false });
       }, 1000);
-
     };
     
     updateDB = (index, songName, singerName, genre, mode, chords, id) => {
@@ -106,7 +108,7 @@ export default class SongList extends Component {
     }
 
     render() {
-      const {visible, loading, psongName, psingerName, pgenre, pchords, pmode} = this.state;
+      const {visible, loading, psongName, psingerName, pgenre, pchords, pmode, pid} = this.state;
         return (
         <div>
         <MainMenu/>
@@ -159,14 +161,14 @@ export default class SongList extends Component {
               </li>
               {/* <button className="leftMargin40Button" onClick={() => this.deleteFromDB(dat._id)}>Delete</button> */}
               <button className="leftMargin20Button" onClick={() => this.setModifying(index, dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Modify</button>
-              <Button type="default" onClick={()=>this.showModal(dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords)}>Details</Button>
+              <Button type="default" onClick={()=>this.showModal(dat.songName, dat.singerName, dat.genre, dat.mode, dat.chords, dat._id)}>Details</Button>
               <Modal
                   visible={visible}                 
                   title="Details"
                   onCancel={this.handleCancel}
                   footer={[
                     <Button key="back" onClick={this.handleCancel}>Return</Button>,                 
-                    <Button type = "danger" onClick={() => this.deleteFromDB(dat._id)}>Delete</Button>,
+                    <Button type = "danger" onClick={() => this.deleteFromDB(pid)}>Delete</Button>,
                     <Button type = "primary">Modify</Button>,
                   ]}>                             
                   <p> Song:{psongName} </p>               
