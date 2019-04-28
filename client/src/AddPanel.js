@@ -26,7 +26,7 @@ export default class AddPanel extends Component {
             }],
             chosenPart: -1,
             chosenChord: -1,
-            imgUrl: "",
+            imgUrls: [],
         };
     }
 
@@ -91,11 +91,11 @@ export default class AddPanel extends Component {
           }
         })
         .then(response => {
-          if(JSON.stringify(response.data) === "{}") {
-            this.setState({imgUrl: require('./pic/cantfind.png')})
+          if(JSON.stringify(response.data) === "[]") {
+            this.setState({imgUrls: [require('./pic/cantfind.png')]})
           }
           else{
-            this.setState({imgUrl: response.data});            
+            this.setState({imgUrls: response.data});            
           }
         })
         this.setState({
@@ -138,15 +138,13 @@ export default class AddPanel extends Component {
             });
             return <div className="chordEntryDiv" key={index}> {entry.part + "   " }{chordsButtons}</div>
         })
-
-
-        const chordImg = this.state.chosenChord !== -1 ?
-          <div>
-            <img alt="chord" src={this.state.imgUrl} width="100px"/> 
-            <i>Chords images are fetched from Chordie.com</i>
-          </div>
+        const chordImgs = this.state.chosenChord !== -1 ?
+          this.state.imgUrls.map(url => {
+            return <img key={url} src={url} width="100px"/> 
+          })
           : 
-          <br/>
+          <br />
+          //   
         return (
         <div className="songChordInputs">
         <MainMenu/>
@@ -241,7 +239,11 @@ export default class AddPanel extends Component {
           <div>
             {currentChords}
           </div>
-          {chordImg}
+          <div>
+            {chordImgs}
+            <br />
+            <i>Chords images are fetched from Chordie.com</i>            
+          </div>
           <div>
             <button className="doneButton" onClick={() => this.putDataToDB(this.state.songName, this.state.singerName, 
               this.state.mode, this.state.partAndChords, this.state.genre)}>

@@ -46,7 +46,12 @@ function getPath(url){
   }
   return rp(options)
   .then(function(response) {
-    return getUrl(response.data)[0].url;
+    var result = getUrl(response.data);
+    let url_list = [];
+    result.forEach(e => {
+      url_list.push(e.url);
+    });
+    return url_list;
   })
   .catch(function(err) {
     return err;

@@ -19,7 +19,6 @@ export default class SongList extends Component {
           mmode: "",
           mgenre: "",
           mchords: "",
-          loading:false,
           visible:false,
           psongName:"",
           psingerName:"",
@@ -80,9 +79,8 @@ export default class SongList extends Component {
         }
       });
       this.setState({ visible: false });
-      this.setState({ loading: true });
       setTimeout(() => {
-        this.setState({ loading: false, visible: false });
+        this.setState({ visible: false });
       }, 1000);
     };
     
@@ -108,7 +106,7 @@ export default class SongList extends Component {
     }
 
     render() {
-      const {visible, loading, psongName, psingerName, pgenre, pchords, pmode, pid} = this.state;
+      const {visible, psongName, psingerName, pgenre, pchords, pmode, pid} = this.state;
         return (
         <div>
         <MainMenu/>
