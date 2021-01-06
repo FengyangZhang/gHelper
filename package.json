@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^3.15.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.2",
     "concurrently": "^4.1.0",
     "express-async-await": "^1.1.0",
