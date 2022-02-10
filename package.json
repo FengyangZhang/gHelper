@@ -18,7 +18,7 @@
     "express-promise-router": "^3.0.3",
     "mongoose": "^5.4.19",
     "morgan": "^1.9.1",
-    "node-sass": "^4.10.0",
+    "node-sass": "^7.0.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-native-scripts": "^2.0.1",
