@@ -23,7 +23,7 @@
     "react-dom": "^16.8.5",
     "react-native-scripts": "^2.0.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "^5.0.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "webpack-dev-server": ">=3.1.11"
